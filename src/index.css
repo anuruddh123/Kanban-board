@@ -1,0 +1,9 @@
+@import "tailwindcss";
+
+body {
+  font-family: 'Inter', sans-serif;
+}
+
+.shadow-md:hover {
+  box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+}

@@ -17,13 +17,6 @@ export default function TaskCard({ task, onEdit }) {
     zIndex: isDragging ? 50 : 1, // ensure dragged card is always on top
   };
 
-  const getOverdue = () => {
-    if (!task.deadline) return null;
-    const diff = Math.floor(
-      (new Date() - new Date(task.deadline)) / (1000 * 60 * 60 * 24)
-    );
-    return diff > 0 ? `${diff}d overdue` : null;
-  };
 
   return (
     <motion.div
@@ -54,18 +47,26 @@ export default function TaskCard({ task, onEdit }) {
       </div>
 
       {/* ACTION ICONS */}
-      <div className="absolute top-3 right-3 flex gap-2 opacity-0 group-hover:opacity-100 transition-all duration-300">
-        <Pencil
-          size={18}
-          onClick={() => onEdit(task)}
-          className="cursor-pointer text-gray-400 hover:text-blue-500 transition-all"
-        />
-        <Trash2
-          size={18}
-          onClick={() => deleteTask(task.id)}
-          className="cursor-pointer text-gray-400 hover:text-red-500 transition-all"
-        />
-      </div>
+    <div
+  className="
+    absolute top-3 right-3 flex gap-2
+    opacity-100 md:opacity-0
+    md:group-hover:opacity-100
+    transition-all duration-300
+  "
+>
+  <Pencil
+    size={18}
+    onClick={() => onEdit(task)}
+    className="cursor-pointer text-gray-400 hover:text-blue-500 transition-all"
+  />
+
+  <Trash2
+    size={18}
+    onClick={() => deleteTask(task.id)}
+    className="cursor-pointer text-gray-400 hover:text-red-500 transition-all"
+  />
+</div>
 
       {/* TITLE */}
       <h3 className="font-semibold text-gray-800 text-lg mb-1 mt-2">
@@ -98,17 +99,8 @@ export default function TaskCard({ task, onEdit }) {
         )}
       </div>
 
-      {/* OVERDUE */}
-      {getOverdue() && (
-        <motion.div
-          initial={{ opacity: 0, y: -2 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ type: "spring", stiffness: 120, damping: 12 }}
-          className="mt-2 text-xs text-red-600 bg-red-50 px-2 py-1 rounded shadow-sm"
-        >
-          ⏰ {getOverdue()}
-        </motion.div>
-      )}
+      
+      
     </motion.div>
   );
 }
